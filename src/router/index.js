@@ -5,7 +5,7 @@ export const privateRouter = (userRole) =>
   [
     {
       path: ROUTES_PATH.ARTICLES,
-      component: () => <div>Articles</div>,
+      component: <div>Articles</div>,
       exact: true,
       children: [],
       accessLevel: [],
