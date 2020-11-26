@@ -1,11 +1,13 @@
 import { ROUTES_PATH, ROUTES_LABEL } from "./constants";
 import React from "react";
 
+import { Articles } from "../containers/Articles/containers";
+
 export const privateRouter = (userRole) =>
   [
     {
       path: ROUTES_PATH.ARTICLES,
-      component: <div>Articles</div>,
+      component: Articles,
       exact: true,
       children: [],
       accessLevel: [],

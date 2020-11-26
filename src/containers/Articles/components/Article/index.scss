@@ -1,0 +1,8 @@
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(100%/3 - 30px);
+  margin: 0 15px 30px;
+text-align: center;
+}
