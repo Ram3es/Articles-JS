@@ -7,6 +7,7 @@ import { ConnectedRouter } from "connected-react-router";
 import history from "./history";
 import store from "./store";
 import "./styles/index.scss";
+import "./i18n";
 
 ReactDOM.render(
   <React.StrictMode>
