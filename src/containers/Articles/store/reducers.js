@@ -1,5 +1,5 @@
 import { constants } from "../../../store/constants";
-import { createReducer } from "../../../utils";
+// import { createReducer } from "../../../utils";
 
 const initialState = {
   articles: [],
@@ -100,7 +100,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        articles: [...state.articles].filter((article) => article.id != action.payload),
+        articles: [...state.articles].filter((article) => article.id !== action.payload),
       };
 
     case constants.ARTICLE_ADD.SUCCEEDED:

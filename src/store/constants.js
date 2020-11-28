@@ -4,5 +4,7 @@ const ARTICLES = ["ARTICLES_FETCH", "ARTICLE_FETCH", "ARTICLE_EDIT", "ARTICLE_RE
 
 const USER = ["USER_FETCH"];
 
-export const compose = [...ARTICLES, ...USER];
+const AUTH = ["SIGN_IN", "SIGN_UP", "SIGN_OUT", "RESET", "FORGOT", "ACTIVATION"];
+
+export const compose = [...ARTICLES, ...USER, ...AUTH];
 export const constants = actionConstantsCreator(compose);

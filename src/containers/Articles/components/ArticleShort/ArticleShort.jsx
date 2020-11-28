@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { ROUTES_PATH } from "../../../../router/constants";
 import { actions } from "../../../../store/actions";
 
-export default ({ article: { id, title, description, image } }) => {
+export default ({ id, title, description, image_url }) => {
   const dispatch = useDispatch();
 
   const handleRemoveArticle = () => {
@@ -15,7 +15,7 @@ export default ({ article: { id, title, description, image } }) => {
   return (
     <article className="article">
       <div className="article__img-wrap">
-        <img src={image} alt={title} />
+        <img src={image_url} alt={title} />
       </div>
       <h3 className="article__title">{title}</h3>
       <p className="article__desc">{description}</p>
