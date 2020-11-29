@@ -6,6 +6,8 @@ export const ROUTES_PATH = {
   ACTIVATION: "/activation",
   ARTICLES: "/articles",
   USER: "/user",
+  ACCOUNT_LINK_SEND: "/account",
+  FORGOT_PASS_LINK_SEND: "/forgot-password-access",
 };
 
 export const ROUTES_LABEL = {

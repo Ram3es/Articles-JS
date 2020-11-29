@@ -8,8 +8,8 @@ import { withRouter } from "react-router";
 import { actions } from "../../../../store/actions";
 import { Formik, Form, Field } from "formik";
 import { FORMS } from "../../constants/forms";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import { CKEditor } from "@ckeditor/ckeditor5-react";
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default withRouter(
   ({
@@ -32,15 +32,15 @@ export default withRouter(
       setArticle(selectedArticle);
     }, [selectedArticle]);
 
-    const handleRemoveArticle = () => {
-      dispatch(actions.ARTICLE_REMOVE.REQUESTED(article.id));
+    // const handleRemoveArticle = () => {
+    //   dispatch(actions.ARTICLE_REMOVE.REQUESTED(article.id));
 
-      dispatch(push(ROUTES_PATH.ARTICLES));
-    };
+    //   dispatch(push(ROUTES_PATH.ARTICLES));
+    // };
 
-    const handleCancelArticle = () => {
-      dispatch(push(ROUTES_PATH.ARTICLES));
-    };
+    // const handleCancelArticle = () => {
+    //   dispatch(push(ROUTES_PATH.ARTICLES));
+    // };
 
     const handleSubmit = (data) => {
       if (id !== "new") {
@@ -65,7 +65,7 @@ export default withRouter(
       }
     };
 
-    const handleChangeCKEditor = (data) => {};
+    //const handleChangeCKEditor = (data) => {};
 
     return (
       <article className="article article--full">

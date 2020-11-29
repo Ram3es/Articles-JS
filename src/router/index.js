@@ -3,6 +3,15 @@ import React from "react";
 
 import { Articles } from "../containers/Articles/containers";
 import { Article } from "../containers/Articles/components";
+import {
+  SignIn,
+  SignUp,
+  ResetPassword,
+  ForgotPassword,
+  AccountActivation,
+  AccountLinkSend,
+  ForgotPassLinkSend,
+} from "../containers/Auth/components";
 
 export const privateRouter = (userRole) =>
   [
@@ -39,32 +48,44 @@ export const privateRouter = (userRole) =>
 export const publicRouter = [
   {
     path: ROUTES_PATH.SIGN_IN,
+    component: SignIn,
     exact: true,
-    component: () => <div>Login</div>,
     children: [],
   },
   {
     path: ROUTES_PATH.SIGN_UP,
+    component: SignUp,
     exact: true,
-    component: () => <div>Registration</div>,
     children: [],
   },
   {
-    path: ROUTES_PATH.RESET,
+    path: `${ROUTES_PATH.RESET}/:token`,
+    component: ResetPassword,
     exact: true,
-    component: () => <div>Reset-password</div>,
     children: [],
   },
   {
     path: ROUTES_PATH.FORGOT,
+    component: ForgotPassword,
     exact: true,
-    component: () => <div>Forgot-password</div>,
     children: [],
   },
   {
-    path: ROUTES_PATH.ACTIVATION,
+    path: `${ROUTES_PATH.ACTIVATION}/:token`,
+    component: AccountActivation,
     exact: true,
-    component: () => <div>Activation</div>,
+    children: [],
+  },
+  {
+    path: ROUTES_PATH.ACCOUNT_LINK_SEND,
+    component: AccountLinkSend,
+    exact: true,
+    children: [],
+  },
+  {
+    path: ROUTES_PATH.FORGOT_PASS_LINK_SEND,
+    component: ForgotPassLinkSend,
+    exact: true,
     children: [],
   },
 ];
