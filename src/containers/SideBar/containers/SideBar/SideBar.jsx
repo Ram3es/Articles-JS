@@ -15,7 +15,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 export default ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [openListItem, setOpenListItem] = useState(false);
+  //const [openListItem, setOpenListItem] = useState(false);
 
   // const handleClick = (label) => {
   //   setOpenListItem(openListItem === label ? false : label);
