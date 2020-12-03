@@ -1,16 +1,17 @@
 import React from "react";
 import useStyles from "./styles";
-import { Typography, FormControl, TextField, Button } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import { push } from "connected-react-router";
 import { useDispatch } from "react-redux";
 import { ROUTES_PATH } from "../../../../router/constants";
+import { Auth } from "../../containers/Auth";
 
 const AccountLinkSend = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   return (
-    <>
+    <Auth>
       <img src="/assets/icons/login.svg" alt="Account created successfully" className={classes.icon} />
       <Typography variant="button">Account created successfully</Typography>
       <Typography variant="body1" display="block" align="center">
@@ -29,7 +30,7 @@ const AccountLinkSend = () => {
       >
         Go To Login
       </Button>
-    </>
+    </Auth>
   );
 };
 

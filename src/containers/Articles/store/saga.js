@@ -1,14 +1,9 @@
 import { call, put, takeLatest, select } from "redux-saga/effects";
-import { constants } from "../../../store/constants";
+import { constants, api } from "../../../store/constants";
 import { actions } from "../../../store/actions";
 import * as selectors from "./selectors";
 import { sagaAssessor } from "../../../utils";
-import axios from "axios";
 import { ROUTES_PATH } from "../../../router/constants";
-
-const api = axios.create({
-  baseURL: "http://localhost:4001/api",
-});
 
 const fetchArticles = ({ _, callback }) =>
   sagaAssessor(

@@ -1,8 +1,12 @@
 import { ROUTES_PATH, ROUTES_LABEL } from "./constants";
 import React from "react";
 
+import FolderSpecialIcon from "@material-ui/icons/FolderSpecial";
+import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
+
 import { Articles } from "../containers/Articles/containers";
 import { Article } from "../containers/Articles/components";
+
 import {
   SignIn,
   SignUp,
@@ -12,6 +16,8 @@ import {
   AccountLinkSend,
   ForgotPassLinkSend,
 } from "../containers/Auth/components";
+
+import { User } from "../containers/User/containers";
 
 export const privateRouter = (userRole) =>
   [
@@ -32,16 +38,16 @@ export const privateRouter = (userRole) =>
       ],
       accessLevel: [],
       label: ROUTES_LABEL.ARTICLES,
-      icon: null,
+      icon: <FolderSpecialIcon />,
     },
     {
       path: ROUTES_PATH.USER,
-      component: () => <div>User</div>,
+      component: User,
       exact: true,
       children: [],
       accessLevel: [],
       label: ROUTES_LABEL.USER,
-      icon: null,
+      icon: <SettingsApplicationsIcon />,
     },
   ].filter((route) => (userRole ? route.accessLevel.includes(userRole) : true));
 

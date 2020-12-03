@@ -6,18 +6,24 @@ import { Formik, Form } from "formik";
 import { FORMS } from "../../constants/forms";
 import { Link } from "react-router-dom";
 import { ROUTES_PATH } from "../../../../router/constants";
+import { Auth } from "../../containers/Auth";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../../store/actions";
 
 const SignUp = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (data) => {};
+  const handleSubmit = (data) => {
+    dispatch(actions.SIGN_UP.REQUESTED(data));
+  };
 
   return (
-    <>
+    <Auth>
       <img src="/assets/icons/reg.svg" alt="Sign Up" className={classes.icon} />
       <Typography variant="button">Registration</Typography>
       <Formik initialValues={FORMS.SIGN_UP.INIT} validationSchema={FORMS.SIGN_UP.SCHEME} onSubmit={handleSubmit}>
-        {({ errors, touched, values: { email }, handleChange }) => {
+        {({ errors, touched, values: { email }, handleChange, setFieldValue, setFieldTouched }) => {
           return (
             <Form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
@@ -29,9 +35,9 @@ const SignUp = () => {
                   helperText={touched.email ? errors.email : ""}
                   error={touched.email && Boolean(errors.email)}
                   value={email}
-                  onChange={handleChange}
-                  InputLabelProps={{
-                    shrink: true,
+                  onChange={(e) => {
+                    setFieldValue("email", e.target.value);
+                    setFieldTouched("email", true, false);
                   }}
                 />
               </FormControl>
@@ -51,7 +57,7 @@ const SignUp = () => {
           );
         }}
       </Formik>
-    </>
+    </Auth>
   );
 };
 

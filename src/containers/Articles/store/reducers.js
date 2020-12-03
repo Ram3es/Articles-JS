@@ -1,34 +1,6 @@
-import { constants } from "../../../store/constants";
-// import { createReducer } from "../../../utils";
+import { constants, initialState } from "../../../store/constants";
 
-const initialState = {
-  articles: [],
-  selectedArticle: null,
-  loading: false,
-  error: null,
-};
-
-/**
- * Example use HOC createReducer for create reducers
- */
-// export default createReducer(initialState, {
-//   [constants.ARTICLES_FETCH.REQUESTED](state) {
-//     return {
-//       ...state,
-//       loading: true,
-//     };
-//   },
-//   [constants.ARTICLES_FETCH.SUCCEEDED](state, action) {
-//     return {
-//       ...state,
-//       articles: action.payload,
-//       loading: false,
-//       error: null,
-//     };
-//   },
-// })
-
-export default (state = initialState, action) => {
+export default (state = initialState.article, action) => {
   switch (action.type) {
     case constants.ARTICLES_FETCH.REQUESTED:
     case constants.ARTICLE_FETCH.REQUESTED:
@@ -115,3 +87,23 @@ export default (state = initialState, action) => {
       return { ...state };
   }
 };
+
+/**
+ * Example use HOC createReducer for create reducers
+ */
+// export default createReducer(initialState, {
+//   [constants.ARTICLES_FETCH.REQUESTED](state) {
+//     return {
+//       ...state,
+//       loading: true,
+//     };
+//   },
+//   [constants.ARTICLES_FETCH.SUCCEEDED](state, action) {
+//     return {
+//       ...state,
+//       articles: action.payload,
+//       loading: false,
+//       error: null,
+//     };
+//   },
+// })

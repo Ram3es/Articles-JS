@@ -34,17 +34,22 @@ export const FORMS = {
     },
     SCHEME: Yup.object().shape({
       password: Yup.string().min(8).required("This field is required"),
-      confirmationPassword: Yup.string().min(8).required("This field is required"),
+      confirmationPassword: Yup.string()
+        .min(8)
+        .oneOf([Yup.ref("password"), null], "Passwords don't match")
+        .required("This field is required"),
     }),
   },
   ACTIVATION: {
     INIT: {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
+      password: "",
     },
     SCHEME: Yup.object().shape({
-      firstName: Yup.string().required("This field is required"),
-      lastName: Yup.string().required("This field is required"),
+      first_name: Yup.string().min(3).required("This field is required"),
+      last_name: Yup.string().min(3).required("This field is required"),
+      password: Yup.string().min(8).required("This field is required"),
     }),
   },
 };

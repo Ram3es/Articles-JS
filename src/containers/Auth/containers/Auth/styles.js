@@ -3,7 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   main: {
     width: "auto",
-    display: "block",
+    display: "flex",
+    alignItems: "center",
+    height: "auto",
+    minHeight: "100%",
     margin: `0 ${theme.spacing(3)}px`,
     [theme.breakpoints.up(400 + theme.spacing(3) * 2)]: {
       width: 400,
@@ -11,7 +14,7 @@ export default makeStyles((theme) => ({
     },
   },
   paper: {
-    margin: `${theme.spacing(3)}px 0 0`,
+    margin: `${theme.spacing(3)}px 0 ${theme.spacing(10)}px`,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

@@ -6,18 +6,24 @@ import { Formik, Form } from "formik";
 import { FORMS } from "../../constants/forms";
 import { Link } from "react-router-dom";
 import { ROUTES_PATH } from "../../../../router/constants";
+import { Auth } from "../../containers/Auth";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../../store/actions";
 
 const ForgotPassword = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (data) => {};
+  const handleSubmit = (data) => {
+    dispatch(actions.FORGOT.REQUESTED(data));
+  };
 
   return (
-    <>
+    <Auth>
       <img src="/assets/icons/login.svg" alt="Forgot Password" className={classes.icon} />
       <Typography variant="button">Forgot Password</Typography>
       <Formik initialValues={FORMS.FORGOT.INIT} validationSchema={FORMS.FORGOT.SCHEME} onSubmit={handleSubmit}>
-        {({ errors, touched, values: { email }, handleChange }) => {
+        {({ errors, touched, values: { email }, handleChange, setFieldValue, setFieldTouched }) => {
           return (
             <Form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
@@ -29,9 +35,9 @@ const ForgotPassword = () => {
                   helperText={touched.email ? errors.email : ""}
                   error={touched.email && Boolean(errors.email)}
                   value={email}
-                  onChange={handleChange}
-                  InputLabelProps={{
-                    shrink: true,
+                  onChange={(e) => {
+                    setFieldValue("email", e.target.value);
+                    setFieldTouched("email", true, false);
                   }}
                 />
               </FormControl>
@@ -51,7 +57,7 @@ const ForgotPassword = () => {
           );
         }}
       </Formik>
-    </>
+    </Auth>
   );
 };
 

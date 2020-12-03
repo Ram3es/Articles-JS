@@ -1,11 +1,14 @@
 import React from "react";
 import "./index.scss";
+import useStyles from "./styles";
 import { push } from "connected-react-router";
 import { useDispatch } from "react-redux";
 import { ROUTES_PATH } from "../../../../router/constants";
 import { actions } from "../../../../store/actions";
+import { Card, CardMedia, CardContent, Typography, CardActions, Button } from "@material-ui/core";
 
 export default ({ id, title, description, image_url }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   const handleRemoveArticle = () => {
@@ -13,21 +16,25 @@ export default ({ id, title, description, image_url }) => {
   };
 
   return (
-    <article className="article">
-      <div className="article__img-wrap">
-        <img src={image_url} alt={title} />
-      </div>
-      <h3 className="article__title">{title}</h3>
-      <p className="article__desc">{description}</p>
-      <div>
-        <button type="button">View</button>
-        <button type="button" onClick={() => dispatch(push(`${ROUTES_PATH.ARTICLES}/${id}`))}>
+    <Card className={classes.card}>
+      <CardMedia className={classes.cardMedia} image={image_url} title={title} />
+      <CardContent className={classes.cardContent}>
+        <Typography gutterBottom variant="h5" component="h2">
+          {title}
+        </Typography>
+        <div dangerouslySetInnerHTML={{ __html: description }} />
+      </CardContent>
+      <CardActions>
+        <Button size="small" color="primary">
+          View
+        </Button>
+        <Button onClick={() => dispatch(push(`${ROUTES_PATH.ARTICLES}/${id}`))} size="small" color="primary">
           Edit
-        </button>
-        <button type="button" onClick={handleRemoveArticle}>
+        </Button>
+        <Button size="small" color="secondary" onClick={handleRemoveArticle}>
           Remove
-        </button>
-      </div>
-    </article>
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
