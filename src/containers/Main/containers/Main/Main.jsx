@@ -35,6 +35,8 @@ const Main = ({ children }) => {
       } else {
         dispatch(push(ROUTES_PATH.SIGN_IN));
       }
+    } else {
+      dispatch(push(ROUTES_PATH.ARTICLES));
     }
   }, [isAuth, dispatch]);
 

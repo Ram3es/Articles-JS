@@ -7,6 +7,7 @@ export default (state = initialState.article, action) => {
     case constants.ARTICLE_EDIT.REQUESTED:
     case constants.ARTICLE_REMOVE.REQUESTED:
     case constants.ARTICLE_ADD.REQUESTED:
+    case constants.ARTICLES_UPDATE.REQUESTED:
       return {
         ...state,
         loading: true,
@@ -14,7 +15,52 @@ export default (state = initialState.article, action) => {
     case constants.ARTICLES_FETCH.SUCCEEDED:
       return {
         ...state,
-        articles: action.payload,
+        articles: action.payload.articles,
+        count: action.payload.count[0].count,
+        loading: false,
+        error: null,
+      };
+    case constants.ARTICLE_FETCH.SUCCEEDED:
+      return {
+        ...state,
+        selectedArticle: action.payload,
+        loading: false,
+        error: null,
+      };
+    case constants.ARTICLE_EDIT.SUCCEEDED:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        selectedArticle: null,
+        articles: [...state.articles].map((article) => {
+          if (article.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return article;
+          }
+        }),
+      };
+    case constants.ARTICLE_REMOVE.SUCCEEDED:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        articles: [...state.articles].filter((article) => article.id !== action.payload),
+      };
+    case constants.ARTICLE_ADD.SUCCEEDED:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        articles: [...state.articles].concat(action.payload),
+      };
+    case constants.ARTICLES_UPDATE.SUCCEEDED:
+      return {
+        ...state,
+        advancedSearch: {
+          ...action.payload,
+        },
         loading: false,
         error: null,
       };
@@ -23,6 +69,7 @@ export default (state = initialState.article, action) => {
     case constants.ARTICLE_EDIT.FAILED:
     case constants.ARTICLE_REMOVE.FAILED:
     case constants.ARTICLE_ADD.FAILED:
+    case constants.ARTICLES_UPDATE.FAILED:
       return {
         ...state,
         loading: false,
@@ -43,44 +90,9 @@ export default (state = initialState.article, action) => {
         ...state,
         selectedArticle: null,
       };
-
-    case constants.ARTICLE_FETCH.SUCCEEDED:
+    case constants.ARTICLES_UPDATE.CLEARED:
       return {
         ...state,
-        selectedArticle: action.payload,
-        loading: false,
-        error: null,
-      };
-
-    case constants.ARTICLE_EDIT.SUCCEEDED:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        selectedArticle: null,
-        articles: [...state.articles].map((article) => {
-          if (article.id === action.payload.id) {
-            return action.payload;
-          } else {
-            return article;
-          }
-        }),
-      };
-
-    case constants.ARTICLE_REMOVE.SUCCEEDED:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        articles: [...state.articles].filter((article) => article.id !== action.payload),
-      };
-
-    case constants.ARTICLE_ADD.SUCCEEDED:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        articles: [...state.articles].concat(action.payload),
       };
 
     default:

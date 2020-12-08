@@ -1,7 +1,14 @@
 import { actionConstantsCreator } from "../utils";
 import axios from "axios";
 
-const ARTICLES = ["ARTICLES_FETCH", "ARTICLE_FETCH", "ARTICLE_EDIT", "ARTICLE_REMOVE", "ARTICLE_ADD"];
+const ARTICLES = [
+  "ARTICLES_FETCH",
+  "ARTICLES_UPDATE",
+  "ARTICLE_FETCH",
+  "ARTICLE_EDIT",
+  "ARTICLE_REMOVE",
+  "ARTICLE_ADD",
+];
 
 const USER = ["USER_FETCH"];
 
@@ -12,12 +19,21 @@ export const constants = actionConstantsCreator(compose);
 
 //console.log(constants);
 
+//Update_advanced_search.request({ skip: 2 }, () => fetchArticles.request())
+
 export const initialState = {
   article: {
     articles: [],
     selectedArticle: null,
     loading: false,
     error: null,
+    advancedSearch: {
+      searchStr: "",
+      order: "created_at_desc",
+      limit: 4,
+      skip: 1,
+    },
+    count: 0,
   },
   user: {},
   auth: {

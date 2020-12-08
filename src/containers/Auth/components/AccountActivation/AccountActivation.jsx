@@ -162,6 +162,7 @@ const AccountActivation = ({
                     name="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
+                    //render={}
                     onChange={(e) => {
                       setFieldValue("password", e.target.value);
                       setFieldTouched("password", true, false);

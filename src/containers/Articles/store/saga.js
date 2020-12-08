@@ -9,8 +9,17 @@ const fetchArticles = ({ _, callback }) =>
   sagaAssessor(
     () =>
       function* () {
-        const URL = ROUTES_PATH.ARTICLES;
-        const { data } = yield call(() => api.get(URL));
+        const { searchStr, order, limit, skip } = yield select((state) => state.articlesReducer.advancedSearch);
+
+        let query = "";
+        let URL = `${ROUTES_PATH.ARTICLES}?`;
+
+        URL += `search=${searchStr}&`;
+        URL += `order=${order}&`;
+        URL += `limit=${limit}&`;
+        URL += `skip=${skip}`;
+
+        const { data } = yield call(() => api.get(`${URL}${query}`));
         yield put(actions.ARTICLES_FETCH.SUCCEEDED(data));
       },
     actions.ARTICLES_FETCH.FAILED,
@@ -68,12 +77,27 @@ const addArticle = ({ payload, callback }) =>
     callback
   );
 
+const updateArticles = ({ payload, callback }) =>
+  sagaAssessor(
+    () =>
+      function* () {
+        yield put(actions.ARTICLES_UPDATE.SUCCEEDED(payload));
+
+        //if (payload.searchStr.length < 5) return;
+
+        yield put(actions.ARTICLES_FETCH.REQUESTED());
+      },
+    actions.ARTICLES_UPDATE.FAILED,
+    callback
+  );
+
 export default function* articlesWatcher() {
   yield takeLatest(constants.ARTICLES_FETCH.REQUESTED, fetchArticles);
   yield takeLatest(constants.ARTICLE_FETCH.REQUESTED, fetchArticleById);
   yield takeLatest(constants.ARTICLE_EDIT.REQUESTED, editArticle);
   yield takeLatest(constants.ARTICLE_REMOVE.REQUESTED, removeArticleById);
   yield takeLatest(constants.ARTICLE_ADD.REQUESTED, addArticle);
+  yield takeLatest(constants.ARTICLES_UPDATE.REQUESTED, updateArticles);
 }
 
 // function* fetchArticles({ callback }) {
