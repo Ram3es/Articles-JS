@@ -8,6 +8,7 @@ const ARTICLES = [
   "ARTICLE_EDIT",
   "ARTICLE_REMOVE",
   "ARTICLE_ADD",
+  "ARTICLE_VIEWED",
 ];
 
 const USER = ["USER_FETCH"];

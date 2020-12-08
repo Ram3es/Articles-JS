@@ -91,6 +91,21 @@ const updateArticles = ({ payload, callback }) =>
     callback
   );
 
+const updateViewedArticle = ({ payload, callback }) =>
+  sagaAssessor(
+    () =>
+      function* () {
+        const { id, ...rest } = payload;
+        console.log(payload);
+        const URL = `${ROUTES_PATH.ARTICLES}/${id}`;
+        const { data } = yield call(() => api.put(URL, rest));
+
+        yield put(actions.ARTICLE_VIEWED.SUCCEEDED(data));
+      },
+    actions.ARTICLE_VIEWED.FAILED,
+    callback
+  );
+
 export default function* articlesWatcher() {
   yield takeLatest(constants.ARTICLES_FETCH.REQUESTED, fetchArticles);
   yield takeLatest(constants.ARTICLE_FETCH.REQUESTED, fetchArticleById);
@@ -98,6 +113,7 @@ export default function* articlesWatcher() {
   yield takeLatest(constants.ARTICLE_REMOVE.REQUESTED, removeArticleById);
   yield takeLatest(constants.ARTICLE_ADD.REQUESTED, addArticle);
   yield takeLatest(constants.ARTICLES_UPDATE.REQUESTED, updateArticles);
+  yield takeLatest(constants.ARTICLE_VIEWED.REQUESTED, updateViewedArticle);
 }
 
 // function* fetchArticles({ callback }) {

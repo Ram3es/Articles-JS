@@ -8,6 +8,7 @@ export default (state = initialState.article, action) => {
     case constants.ARTICLE_REMOVE.REQUESTED:
     case constants.ARTICLE_ADD.REQUESTED:
     case constants.ARTICLES_UPDATE.REQUESTED:
+    case constants.ARTICLE_VIEWED.REQUESTED:
       return {
         ...state,
         loading: true,
@@ -28,6 +29,20 @@ export default (state = initialState.article, action) => {
         error: null,
       };
     case constants.ARTICLE_EDIT.SUCCEEDED:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        selectedArticle: null,
+        articles: [...state.articles].map((article) => {
+          if (article.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return article;
+          }
+        }),
+      };
+    case constants.ARTICLE_VIEWED.SUCCEEDED:
       return {
         ...state,
         loading: false,
@@ -70,6 +85,7 @@ export default (state = initialState.article, action) => {
     case constants.ARTICLE_REMOVE.FAILED:
     case constants.ARTICLE_ADD.FAILED:
     case constants.ARTICLES_UPDATE.FAILED:
+    case constants.ARTICLE_VIEWED.FAILED:
       return {
         ...state,
         loading: false,
@@ -89,6 +105,11 @@ export default (state = initialState.article, action) => {
       return {
         ...state,
         selectedArticle: null,
+      };
+    case constants.ARTICLE_VIEWED.CLEARED:
+      return {
+        ...state,
+        selectedArticle: action.payload,
       };
     case constants.ARTICLES_UPDATE.CLEARED:
       return {

@@ -25,10 +25,10 @@ export default ({ id, title, description, image_url }) => {
         <div dangerouslySetInnerHTML={{ __html: description }} />
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button onClick={() => dispatch(push(`${ROUTES_PATH.ARTICLES}/${id}`))} size="small" color="primary">
           View
         </Button>
-        <Button onClick={() => dispatch(push(`${ROUTES_PATH.ARTICLES}/${id}`))} size="small" color="primary">
+        <Button onClick={() => dispatch(push(`${ROUTES_PATH.ARTICLES}/${id}/edit`))} size="small" color="primary">
           Edit
         </Button>
         <Button size="small" color="secondary" onClick={handleRemoveArticle}>
