@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import { push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,9 +40,12 @@ const ResetPassword = ({
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
-  const fetchUserBeforeReset = (id) => {
-    dispatch(actions.USER_FETCH.REQUESTED(id));
-  };
+  const fetchUserBeforeReset = useCallback(
+    (id) => {
+      dispatch(actions.USER_FETCH.REQUESTED(id));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     if (token) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import { push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,9 +40,12 @@ const AccountActivation = ({
   const [isExpiredToken, setIsExpiredToken] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
-  const fetchUserBeforeActivation = (id) => {
-    dispatch(actions.USER_FETCH.REQUESTED(id));
-  };
+  const fetchUserBeforeActivation = useCallback(
+    (id) => {
+      dispatch(actions.USER_FETCH.REQUESTED(id));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     if (token) {

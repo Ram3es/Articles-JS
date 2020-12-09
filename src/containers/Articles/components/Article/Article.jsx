@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { withRouter } from "react-router";
 import { push } from "connected-react-router";
@@ -34,6 +34,7 @@ export default withRouter(
   }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const [isViewed, setIsViewed] = useState(false);
 
     useEffect(() => {
       if (id !== "new") {
@@ -46,15 +47,16 @@ export default withRouter(
     const isEdit = action && action === "edit" ? true : false;
 
     useEffect(() => {
-      if (!isEdit && selectedArticle) {
+      if (!isEdit && selectedArticle && !isViewed) {
         dispatch(
           actions.ARTICLE_VIEWED.REQUESTED({
             id: Number(id),
             viewed: selectedArticle.viewed + 1,
           })
         );
+        setIsViewed(true);
       }
-    }, [dispatch, id, isEdit, selectedArticle]);
+    }, [dispatch, id, isEdit, selectedArticle, isViewed]);
 
     // if (!isEdit && selectedArticle) {
     //   const { title, description, viewed, image_url } = selectedArticle;
