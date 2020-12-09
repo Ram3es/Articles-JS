@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import useStyles from "./styles";
+
+import { push } from "connected-react-router";
+import { useDispatch, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+import { Link } from "react-router-dom";
+
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { FORMS } from "containers/Auth/constants/forms";
+import { getUser } from "containers/User/store/selectors";
+
+import { Auth } from "containers/Auth/containers/Auth";
 import {
   Typography,
   FormControl,
@@ -12,17 +23,10 @@ import {
 } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import "./index.scss";
 import { Formik, Form } from "formik";
-import { FORMS } from "../../constants/forms";
-import { Link } from "react-router-dom";
-import { ROUTES_PATH } from "../../../../router/constants";
-import { push } from "connected-react-router";
-import { useDispatch, useSelector } from "react-redux";
-import jwt from "jsonwebtoken";
-import { Auth } from "../../containers/Auth";
-import { actions } from "../../../../store/actions";
-import { getUser } from "../../../User/store/selectors";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 const ResetPassword = ({
   match: {
@@ -30,11 +34,15 @@ const ResetPassword = ({
   },
 }) => {
   const classes = useStyles();
-  const [isExpiredToken, setIsExpiredToken] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser());
+  const [isExpiredToken, setIsExpiredToken] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+
+  const fetchUserBeforeReset = (id) => {
+    dispatch(actions.USER_FETCH.REQUESTED(id));
+  };
 
   useEffect(() => {
     if (token) {
@@ -50,10 +58,6 @@ const ResetPassword = ({
       dispatch(push(ROUTES_PATH.SIGN_IN));
     }
   }, [dispatch, fetchUserBeforeReset, token]);
-
-  const fetchUserBeforeReset = (id) => {
-    dispatch(actions.USER_FETCH.REQUESTED(id));
-  };
 
   const handleSubmit = (data) => {
     dispatch(actions.RESET.REQUESTED({ userId: user.id, ...data }));
@@ -173,28 +177,6 @@ const ResetPassword = ({
                     {touched.confirmationPassword && errors.confirmationPassword}
                   </FormHelperText>
                 </FormControl>
-                {/* <FormControl margin="normal" required fullWidth>
-                  <TextField
-                    id="confirmationPassword"
-                    name="confirmationPassword"
-                    label="Confirmation Password"
-                    variant="outlined"
-                    helperText={
-                      touched.confirmationPassword
-                        ? errors.confirmationPassword
-                        : ""
-                    }
-                    error={
-                      touched.confirmationPassword &&
-                      Boolean(errors.confirmationPassword)
-                    }
-                    value={confirmationPassword}
-                    onChange={handleChange}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </FormControl> */}
                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                   Reset
                 </Button>

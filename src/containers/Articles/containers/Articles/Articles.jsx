@@ -1,32 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ArticleShort } from "../../components";
-import { getAllArticles } from "../../store/selectors";
-import { actions } from "../../../../store/actions";
-// import { v4 as uuidv4 } from "uuid";
-import { useTranslation } from "react-i18next";
-import "./index.scss";
-import { Container, Grid, Button, Typography } from "@material-ui/core";
-import useStyles from "./styles";
+import React, { useEffect } from "react";
+
 import { push } from "connected-react-router";
-import { ROUTES_PATH } from "../../../../router/constants";
-import { Pagination } from "../../../../shared/components/Pagination";
-import { Filter } from "../../../../shared/components/Filter";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+// import { v4 as uuidv4 } from "uuid";
+
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { getAllArticles } from "containers/Articles/store/selectors";
+
+import { ArticleShort } from "containers/Articles/components";
+import { Pagination } from "shared/components/Pagination";
+import { Filter } from "shared/components/Filter";
+import { Container, Grid, Button, Typography } from "@material-ui/core";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 export default () => {
-  const dispatch = useDispatch();
-  const { articles, loading, advancedSearch, count } = useSelector(getAllArticles());
-
-  const { t } = useTranslation();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const { articles, loading, advancedSearch, count } = useSelector(getAllArticles());
 
   useEffect(() => {
     dispatch(actions.ARTICLES_FETCH.REQUESTED());
   }, [dispatch]);
-
-  const handleAddArticle = () => {
-    dispatch(push(`${ROUTES_PATH.ARTICLES}/new`));
-  };
 
   return (
     <div>
@@ -34,7 +33,7 @@ export default () => {
         <div className={classes.heroButtons}>
           <Grid container spacing={2}>
             <Grid item>
-              <Button onClick={handleAddArticle} variant="contained" color="primary">
+              <Button onClick={() => dispatch(push(`${ROUTES_PATH.ARTICLES}/new`))} variant="contained" color="primary">
                 {t("Add new article")}
               </Button>
             </Grid>

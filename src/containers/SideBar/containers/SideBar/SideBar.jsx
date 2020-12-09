@@ -1,35 +1,20 @@
-import React, { useState } from "react";
-import "./index.scss";
-import { privateRouter } from "../../../../router";
-import { Drawer, IconButton, Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import classnames from "classnames";
-import useStyles from "./styles";
-import { useDispatch } from "react-redux";
+import React from "react";
+
 import { push } from "connected-react-router";
-// import { SideBarItem } from "../../components/SideBarItem";
+import { useDispatch } from "react-redux";
+import classnames from "classnames";
+
+import { privateRouter } from "router";
+
+import { Drawer, IconButton, Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-// import ExpandLess from "@material-ui/icons/ExpandLess";
-// import ExpandMore from "@material-ui/icons/ExpandMore";
-//import { SideBarLink } from "../../components/SideBarLink";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 export default ({ open, setOpen }) => {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  //const [openListItem, setOpenListItem] = useState(false);
-
-  // const handleClick = (label) => {
-  //   setOpenListItem(openListItem === label ? false : label);
-  // };
-
-  // const nav = privateRouter().map((route) => {
-  //   return <SideBarLink key={route.path} route={route} />;
-  // });
-
-  // return (
-  //   <aside className="sidebar">
-  //     <nav className="nav">{nav}</nav>
-  //   </aside>
-  // );
+  const dispatch = useDispatch();
 
   const renderListItems = (parentRoutePath, route) => {
     const { icon, path, label } = route;
@@ -50,47 +35,6 @@ export default ({ open, setOpen }) => {
         <ListItemText primary={label} />
       </ListItem>
     );
-
-    // if (!children.length) {
-    //   return (
-    //     <ListItem
-    //       dense={Boolean(parentRoutePath)}
-    //       key={fullPath}
-    //       onClick={() => dispatch(push(fullPath))}
-    //       button
-    //       divider
-    //       className={classnames(classes.nav, {
-    //         [classes.childNav]: parentRoutePath,
-    //       })}
-    //     >
-    //       {parentRoutePath ? null : <ListItemIcon>{icon}</ListItemIcon>}
-    //       <ListItemText primary={label} />
-    //     </ListItem>
-    //   );
-    // } else {
-    //   return (
-    //     <React.Fragment key={fullPath}>
-    //       <ListItem
-    //         dense={Boolean(parentRoutePath)}
-    //         button
-    //         divider
-    //         className={classnames(classes.nav, {
-    //           [classes.childNav]: parentRoutePath
-    //         })}
-    //         onClick={() => handleClick(label)}
-    //       >
-    //         {parentRoutePath ? null : <ListItemIcon>{icon}</ListItemIcon>}
-    //         <ListItemText primary={label} />
-    //         {openListItem === label ? <ExpandLess /> : <ExpandMore />}
-    //       </ListItem>
-    //       <Collapse in={openListItem === label} timeout="auto" unmountOnExit>
-    //         <List component="div" disablePadding>
-    //           {children.map(childRoute => renderListItems(path, childRoute))}
-    //         </List>
-    //       </Collapse>
-    //     </React.Fragment>
-    //   )
-    // }
   };
 
   return (

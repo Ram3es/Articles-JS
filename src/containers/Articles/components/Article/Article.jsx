@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import "./index.scss";
+
+import { withRouter } from "react-router";
 import { push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { ROUTES_PATH } from "../../../../router/constants";
-import { getArticleById } from "../../store/selectors";
-import { withRouter } from "react-router";
-import { actions } from "../../../../store/actions";
-import { Formik, Form } from "formik";
-import { FORMS } from "../../constants/forms";
-import CKEditor from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { getArticleById } from "containers/Articles/store/selectors";
+import { FORMS } from "containers/Articles/constants/forms";
+
 import {
   Grid,
   Container,
@@ -20,7 +19,12 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
+import { Formik, Form } from "formik";
+import CKEditor from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 import useStyles from "./styles";
+import "./index.scss";
 
 export default withRouter(
   ({
@@ -30,7 +34,6 @@ export default withRouter(
   }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    // const [article, setArticle] = useState(null);
 
     useEffect(() => {
       if (id !== "new") {
@@ -39,8 +42,6 @@ export default withRouter(
     }, [dispatch, id]);
 
     const selectedArticle = id !== "new" ? useSelector(getArticleById(Number(id))) : null;
-
-    console.log(selectedArticle);
 
     const isEdit = action && action === "edit" ? true : false;
 
@@ -58,18 +59,10 @@ export default withRouter(
     // if (!isEdit && selectedArticle) {
     //   const { title, description, viewed, image_url } = selectedArticle;
     // }
-
+    console.log(selectedArticle);
     console.log("edit", isEdit);
-    // if (isEdit === true && selectedArticle) {
-    //   const { title, description, image_url, viewed } = selectedArticle;
-    // }
-
-    // useEffect(() => {
-    //   setArticle(selectedArticle);
-    // }, [selectedArticle]);
 
     const handleChangeArticle = (data) => {
-      //console.log(data);
       dispatch(actions.ARTICLE_EDIT.REQUESTED(data));
       dispatch(push(ROUTES_PATH.ARTICLES));
     };
@@ -79,17 +72,11 @@ export default withRouter(
       dispatch(push(ROUTES_PATH.ARTICLES));
     };
 
-    // const handleCancelArticle = () => {
-    //   dispatch(push(ROUTES_PATH.ARTICLES));
-    // };
-
     const handleSubmit = (data) => {
       const payload = {
         ...data,
         image_url: "https://picsum.photos/id/395/200/300?grayscale",
       };
-
-      //console.log(payload);
 
       delete payload.image;
 
@@ -110,25 +97,10 @@ export default withRouter(
         reader.onerror = (error) => reject(error);
       });
 
-    // const getError = (errors, touched, name) => {
-    //   if (errors[name] && touched[name]) {
-    //     return <div>{errors[name]}</div>;
-    //   } else {
-    //     return null;
-    //   }
-    // };
-
-    //const handleChangeCKEditor = (data) => {};
-
     return (
       <>
         {!isEdit && selectedArticle ? (
           <>
-            {/* {({ selectedArticle: { title, description, viewed, image_url } }) => {
-              return (
-                <div>test</div>
-              )
-            }} */}
             <Container>
               <div className={classes.heroButtons}>
                 <Grid container spacing={2}>
@@ -177,9 +149,6 @@ export default withRouter(
               setFieldTouched,
               values: { title, description, image },
             }) => {
-              // console.log('errors', errors)
-              // console.log('touched', touched)
-
               return (
                 <Form>
                   <div className={classes.heroContent}>

@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   toolbar: {
-    paddingRight: 14, // keep right padding when drawer closed
+    paddingRight: 14,
     marginLeft: "0 !important",
     paddingLeft: 14,
   },

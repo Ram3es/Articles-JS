@@ -1,10 +1,14 @@
 import React from "react";
-import useStyles from "./styles";
-import { Typography, Button } from "@material-ui/core";
+
 import { push } from "connected-react-router";
 import { useDispatch } from "react-redux";
-import { ROUTES_PATH } from "../../../../router/constants";
-import { Auth } from "../../containers/Auth";
+
+import { ROUTES_PATH } from "router/constants";
+
+import { Auth } from "containers/Auth/containers/Auth";
+import { Typography, Button } from "@material-ui/core";
+
+import useStyles from "./styles";
 
 const AccountLinkSend = () => {
   const classes = useStyles();

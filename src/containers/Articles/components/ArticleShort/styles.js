@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
     height: "100%",
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
   },
   cardContent: {
     flexGrow: 1,

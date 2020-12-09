@@ -5,10 +5,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     minHeight: "100%",
   },
-  container: {
-    // padding: theme.spacing(0, 2),
-    // height: "100%",
-  },
+  container: {},
   content: {
     flexGrow: 1,
     height: "100vh",
@@ -16,8 +13,4 @@ export default makeStyles((theme) => ({
     overflowX: "hidden",
   },
   appBarSpacer: theme.mixins.toolbar,
-  // margin: {
-  //   margin: theme.spacing(1),
-  //   color: "#fff",
-  // },
 }));

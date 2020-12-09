@@ -1,14 +1,18 @@
 import React from "react";
-import useStyles from "./styles";
-import { Typography, FormControl, TextField, Button } from "@material-ui/core";
-import "./index.scss";
-import { Formik, Form } from "formik";
-import { FORMS } from "../../constants/forms";
-import { Link } from "react-router-dom";
-import { ROUTES_PATH } from "../../../../router/constants";
-import { Auth } from "../../containers/Auth";
+
 import { useDispatch } from "react-redux";
-import { actions } from "../../../../store/actions";
+import { Link } from "react-router-dom";
+
+import { ROUTES_PATH } from "../../../../router/constants";
+import { actions } from "store/actions";
+import { FORMS } from "containers/Auth/constants/forms";
+
+import { Auth } from "containers/Auth/containers/Auth";
+import { Typography, FormControl, TextField, Button } from "@material-ui/core";
+import { Formik, Form } from "formik";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 const ForgotPassword = () => {
   const classes = useStyles();

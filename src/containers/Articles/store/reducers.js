@@ -120,23 +120,3 @@ export default (state = initialState.article, action) => {
       return { ...state };
   }
 };
-
-/**
- * Example use HOC createReducer for create reducers
- */
-// export default createReducer(initialState, {
-//   [constants.ARTICLES_FETCH.REQUESTED](state) {
-//     return {
-//       ...state,
-//       loading: true,
-//     };
-//   },
-//   [constants.ARTICLES_FETCH.SUCCEEDED](state, action) {
-//     return {
-//       ...state,
-//       articles: action.payload,
-//       loading: false,
-//       error: null,
-//     };
-//   },
-// })

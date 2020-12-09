@@ -1,5 +1,6 @@
-import { actionConstantsCreator } from "../utils";
 import axios from "axios";
+
+import { actionConstantsCreator } from "utils";
 
 const ARTICLES = [
   "ARTICLES_FETCH",
@@ -17,10 +18,6 @@ const AUTH = ["SIGN_IN", "SIGN_UP", "SIGN_OUT", "RESET", "FORGOT", "ACTIVATION"]
 
 export const compose = [...ARTICLES, ...USER, ...AUTH];
 export const constants = actionConstantsCreator(compose);
-
-//console.log(constants);
-
-//Update_advanced_search.request({ skip: 2 }, () => fetchArticles.request())
 
 export const initialState = {
   article: {

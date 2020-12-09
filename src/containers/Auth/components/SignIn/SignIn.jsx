@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import useStyles from "./styles";
+
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { FORMS } from "containers/Auth/constants/forms";
+
+import { Auth } from "containers/Auth/containers/Auth";
 import {
   Typography,
   FormControl,
@@ -13,15 +21,10 @@ import {
 } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import "./index.scss";
 import { Formik, Form } from "formik";
-import { FORMS } from "../../constants/forms";
-import { Link } from "react-router-dom";
-import { ROUTES_PATH } from "../../../../router/constants";
-import { Auth } from "../../containers/Auth";
-//import { push } from "connected-react-router";
-import { useDispatch } from "react-redux";
-import { actions } from "../../../../store/actions";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 const SignIn = () => {
   const classes = useStyles();
@@ -30,7 +33,6 @@ const SignIn = () => {
 
   const handleSubmit = (data) => {
     dispatch(actions.SIGN_IN.REQUESTED(data));
-    //dispatch(push(ROUTES_PATH.SIGN_IN));
   };
 
   const handleClickShowPassword = () => {

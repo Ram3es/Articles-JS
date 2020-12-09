@@ -1,12 +1,10 @@
-import { ROUTES_PATH, ROUTES_LABEL } from "./constants";
 import React from "react";
 
-import FolderSpecialIcon from "@material-ui/icons/FolderSpecial";
-import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
+import { ROUTES_PATH, ROUTES_LABEL } from "./constants";
 
-import { Articles } from "../containers/Articles/containers";
-import { Article } from "../containers/Articles/components";
-
+import { Articles } from "containers/Articles/containers";
+import { Article } from "containers/Articles/components";
+import { User } from "containers/User/containers";
 import {
   SignIn,
   SignUp,
@@ -15,9 +13,9 @@ import {
   AccountActivation,
   AccountLinkSend,
   ForgotPassLinkSend,
-} from "../containers/Auth/components";
-
-import { User } from "../containers/User/containers";
+} from "containers/Auth/components";
+import FolderSpecialIcon from "@material-ui/icons/FolderSpecial";
+import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 
 export const privateRouter = (userRole) =>
   [

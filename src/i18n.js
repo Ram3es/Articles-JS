@@ -22,7 +22,7 @@ i18n
     lng: "us",
     ns: ["translations"],
     defaultNS: "translations",
-    fallbackLng: "ru",
+    fallbackLng: "en",
     // debug: true,
     keySeparator: false,
     interpolation: {

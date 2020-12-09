@@ -1,22 +1,15 @@
 import React from "react";
+
 import { useSelector } from "react-redux";
 
-import { getUser } from "../../store/selectors";
-// import { actions } from "../../../../store/actions";
+import { getUser } from "containers/User/store/selectors";
 
-//import { useTranslation } from "react-i18next";
+import { Typography, Container } from "@material-ui/core";
 
 import "./index.scss";
-import { Typography, Container } from "@material-ui/core";
-//import useStyles from "./styles";
-// import { push } from "connected-react-router";
-// import { ROUTES_PATH } from "../../../../router/constants";
 
 export default () => {
-  //const dispatch = useDispatch();
   const user = useSelector(getUser());
-  //const { t } = useTranslation();
-  //const classes = useStyles();
 
   return (
     <div>

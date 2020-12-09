@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
-import useStyles from "./styles";
-import { CssBaseline, Paper } from "@material-ui/core";
-import { actions } from "../../../../store/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuth } from "../../../Auth/store/selectors";
-import jwt from "jsonwebtoken";
-import { ROUTES_PATH } from "../../../../router/constants";
+
 import { push } from "connected-react-router";
+import { useDispatch, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { getAuth } from "containers/Auth/store/selectors";
+
+import { CssBaseline, Paper } from "@material-ui/core";
+
+import useStyles from "./styles";
 
 const Auth = ({ children }) => {
   const classes = useStyles();
@@ -22,7 +26,6 @@ const Auth = ({ children }) => {
 
         if (decoded.exp < new Date().getTime()) {
           localStorage.removeItem("token");
-          //dispatch(push(ROUTES_PATH.SIGN_IN));
         } else {
           dispatch(actions.SIGN_IN.SUCCEEDED(token));
           dispatch(actions.USER_FETCH.SUCCEEDED(decoded.user));

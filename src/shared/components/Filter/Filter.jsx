@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
-import "./index.scss";
-import "./styles";
-import { Container, Grid, FormControl, InputLabel, Input, InputAdornment, Select, MenuItem } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
-import useStyles from "./styles";
+import React from "react";
+
 import { useDispatch } from "react-redux";
-import { actions } from "../../../store/actions";
+
+import { actions } from "store/actions";
+
+import { Container, Grid, FormControl, InputLabel, Input, InputAdornment, Select } from "@material-ui/core";
+import { Search } from "@material-ui/icons";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 export default ({ filter }) => {
   const classes = useStyles();
-  const { searchStr, order, limit } = filter;
   const dispatch = useDispatch();
+  const { searchStr, order, limit } = filter;
 
   const handleChangeFilter = (eventField) => {
     dispatch(

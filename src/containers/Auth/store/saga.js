@@ -1,10 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { constants, api } from "../../../store/constants";
-import { actions } from "../../../store/actions";
-//import * as selectors from "./selectors";
-import { sagaAssessor } from "../../../utils";
-import { ROUTES_PATH } from "../../../router/constants";
+
 import { push } from "connected-react-router";
+
+import { constants, api } from "store/constants";
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { sagaAssessor } from "utils";
 
 const URL_PREFIX = "/auth";
 

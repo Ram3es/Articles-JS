@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../../../store/actions";
-import { Header } from "../../../Header/containers";
-import { SideBar } from "../../../SideBar/containers";
-import "./index.scss";
-import useStyles from "./stylels";
-import { CssBaseline, Grid } from "@material-ui/core";
-import { getAuth } from "../../../Auth/store/selectors";
-import jwt from "jsonwebtoken";
-import { ROUTES_PATH } from "../../../../router/constants";
+
 import { push } from "connected-react-router";
+import { useDispatch, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { getAuth } from "containers/Auth/store/selectors";
+
+import { Header } from "containers/Header/containers";
+import { SideBar } from "containers/SideBar/containers";
+import { CssBaseline, Grid } from "@material-ui/core";
+
+import useStyles from "./stylels";
+import "./index.scss";
 
 const Main = ({ children }) => {
   const classes = useStyles();

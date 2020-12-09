@@ -1,4 +1,4 @@
-import { constants, initialState } from "../../../store/constants";
+import { constants, initialState } from "store/constants";
 
 export default (state = initialState.user, action) => {
   switch (action.type) {

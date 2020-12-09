@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import useStyles from "./styles";
+
+import { push } from "connected-react-router";
+import { useDispatch, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+import { Link } from "react-router-dom";
+
+import { ROUTES_PATH } from "router/constants";
+import { actions } from "store/actions";
+import { getUser } from "containers/User/store/selectors";
+import { FORMS } from "containers/Auth/constants/forms";
+
+import { Auth } from "containers/Auth/containers/Auth";
 import {
   Typography,
   FormControl,
@@ -13,17 +24,10 @@ import {
 } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import "./index.scss";
 import { Formik, Form } from "formik";
-import { FORMS } from "../../constants/forms";
-import { Link } from "react-router-dom";
-import { ROUTES_PATH } from "../../../../router/constants";
-import { push } from "connected-react-router";
-import { useDispatch, useSelector } from "react-redux";
-import jwt from "jsonwebtoken";
-import { Auth } from "../../containers/Auth";
-import { actions } from "../../../../store/actions";
-import { getUser } from "../../../User/store/selectors";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 const AccountActivation = ({
   match: {
@@ -31,10 +35,14 @@ const AccountActivation = ({
   },
 }) => {
   const classes = useStyles();
-  const [isExpiredToken, setIsExpiredToken] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector(getUser());
+  const [isExpiredToken, setIsExpiredToken] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+
+  const fetchUserBeforeActivation = (id) => {
+    dispatch(actions.USER_FETCH.REQUESTED(id));
+  };
 
   useEffect(() => {
     if (token) {
@@ -50,10 +58,6 @@ const AccountActivation = ({
       dispatch(push(ROUTES_PATH.SIGN_IN));
     }
   }, [dispatch, fetchUserBeforeActivation, token]);
-
-  const fetchUserBeforeActivation = (id) => {
-    dispatch(actions.USER_FETCH.REQUESTED(id));
-  };
 
   const handleSubmit = (data) => {
     dispatch(actions.ACTIVATION.REQUESTED({ id: user.id, ...data }));

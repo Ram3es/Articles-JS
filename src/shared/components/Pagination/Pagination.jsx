@@ -1,13 +1,14 @@
 import React from "react";
-import "./index.scss";
-import "./styles";
-import { Container } from "@material-ui/core";
-import { Pagination, PaginationItem } from "@material-ui/lab";
-import useStyles from "./styles";
-import { ROUTES_PATH } from "../../../router/constants";
-import { Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
-import { actions } from "../../../store/actions";
+
+import { actions } from "store/actions";
+
+import { Container } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
+
+import useStyles from "./styles";
+import "./index.scss";
 
 export default ({ countObj, filter }) => {
   const classes = useStyles();
@@ -33,13 +34,6 @@ export default ({ countObj, filter }) => {
             page={skip}
             variant="outlined"
             shape="rounded"
-            // renderItem={(item) => (
-            //   <PaginationItem
-            //     component={Link}
-            //     to={`${ROUTES_PATH.ARTICLES}${item.page === 1 ? '' : `?page=${item.page}`}`}
-            //     {...item}
-            //   />
-            // )}
             onChange={handleChangePagination}
           ></Pagination>
         </Container>
