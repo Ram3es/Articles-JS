@@ -56,7 +56,7 @@ export default withRouter(
         );
         setIsViewed(true);
       }
-    }, [dispatch, id, isEdit, selectedArticle, isViewed]);
+    }, []);
 
     // if (!isEdit && selectedArticle) {
     //   const { title, description, viewed, image_url } = selectedArticle;

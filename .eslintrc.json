@@ -4,11 +4,12 @@
     "es6": true
   },
   "extends": ["react-app", "prettier"],
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "react-hooks"],
   "parserOptions": {
     "ecmaVersion": 2020
   },
   "rules": {
+    "react-hooks/exhaustive-deps": "off",
     "prettier/prettier": [
       "error",
       {

@@ -28,7 +28,7 @@ export default ({ location: { search } }) => {
 
   useEffect(() => {
     dispatch(actions.ARTICLES_FETCH.REQUESTED({ ...advancedSearch, ...params }));
-  }, [advancedSearch, dispatch, params]);
+  }, []);
 
   const handleUpdateArticles = (e) => {
     let fieldName = e.currentTarget.name || "skip";
