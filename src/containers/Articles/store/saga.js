@@ -6,11 +6,18 @@ import { actions } from "store/actions";
 import * as selectors from "./selectors";
 import { sagaAssessor } from "utils";
 
-const fetchArticles = ({ _, callback }) =>
+const fetchArticles = ({ payload, callback }) =>
   sagaAssessor(
     () =>
       function* () {
-        const { searchStr, order, limit, skip } = yield select((state) => state.articlesReducer.advancedSearch);
+        let advancedSearch = yield select((state) => state.articlesReducer.advancedSearch);
+
+        advancedSearch = {
+          ...advancedSearch,
+          ...payload,
+        };
+
+        const { searchStr, order, limit, skip } = advancedSearch;
 
         let query = "";
         let URL = `${ROUTES_PATH.ARTICLES}?`;
@@ -85,8 +92,9 @@ const updateArticles = ({ payload, callback }) =>
         yield put(actions.ARTICLES_UPDATE.SUCCEEDED(payload));
 
         //if (payload.searchStr.length < 5) return;
+        //console.log("payloadUpdate", payload);
 
-        yield put(actions.ARTICLES_FETCH.REQUESTED());
+        yield put(actions.ARTICLES_FETCH.REQUESTED(payload));
       },
     actions.ARTICLES_UPDATE.FAILED,
     callback
@@ -97,7 +105,7 @@ const updateViewedArticle = ({ payload, callback }) =>
     () =>
       function* () {
         const { id, ...rest } = payload;
-        console.log(payload);
+
         const URL = `${ROUTES_PATH.ARTICLES}/${id}`;
         const { data } = yield call(() => api.put(URL, rest));
 

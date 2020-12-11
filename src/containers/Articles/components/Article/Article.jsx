@@ -61,8 +61,8 @@ export default withRouter(
     // if (!isEdit && selectedArticle) {
     //   const { title, description, viewed, image_url } = selectedArticle;
     // }
-    console.log(selectedArticle);
-    console.log("edit", isEdit);
+    // console.log(selectedArticle);
+    // console.log("edit", isEdit);
 
     const handleChangeArticle = (data) => {
       dispatch(actions.ARTICLE_EDIT.REQUESTED(data));

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import * as queryString from "query-string";
 // import { v4 as uuidv4 } from "uuid";
 
 import { ROUTES_PATH } from "router/constants";
@@ -17,15 +18,32 @@ import { Container, Grid, Button, Typography } from "@material-ui/core";
 import useStyles from "./styles";
 import "./index.scss";
 
-export default () => {
+export default ({ location: { search } }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { articles, loading, advancedSearch, count } = useSelector(getAllArticles());
+
+  const params = queryString.parse(search, { parseNumbers: true, sort: false });
+  let { articles, loading, advancedSearch, count } = useSelector(getAllArticles());
 
   useEffect(() => {
-    dispatch(actions.ARTICLES_FETCH.REQUESTED());
-  }, [dispatch]);
+    dispatch(actions.ARTICLES_FETCH.REQUESTED({ ...advancedSearch, ...params }));
+  }, [advancedSearch, dispatch, params]);
+
+  const handleUpdateArticles = (e) => {
+    let fieldName = e.currentTarget.name || "skip";
+    let fieldValue = e.currentTarget.value || Number(e.currentTarget.dataset.page);
+
+    advancedSearch = {
+      ...advancedSearch,
+      [fieldName]: fieldValue,
+    };
+
+    dispatch(
+      actions.ARTICLES_UPDATE.REQUESTED(advancedSearch),
+      dispatch(push(`${ROUTES_PATH.ARTICLES}?${new URLSearchParams(advancedSearch).toString()}`))
+    );
+  };
 
   return (
     <div>
@@ -42,7 +60,7 @@ export default () => {
       </Container>
       {!loading ? (
         <>
-          <Filter filter={advancedSearch} />
+          <Filter filter={advancedSearch} onUpdateArticles={handleUpdateArticles} />
           {articles.length > 0 ? (
             <>
               <Container className={classes.cardGrid}>
@@ -54,7 +72,7 @@ export default () => {
                   ))}
                 </Grid>
               </Container>
-              <Pagination countObj={count} filter={advancedSearch} />
+              <Pagination countObj={count} filter={advancedSearch} onUpdateArticles={handleUpdateArticles} />
             </>
           ) : (
             <Container className={classes.cardGrid}>

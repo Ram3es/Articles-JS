@@ -1,28 +1,14 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
-
-import { actions } from "store/actions";
-
 import { Container, Grid, FormControl, InputLabel, Input, InputAdornment, Select } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 
 import useStyles from "./styles";
 import "./index.scss";
 
-export default ({ filter }) => {
+export default ({ filter, onUpdateArticles }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const { searchStr, order, limit } = filter;
-
-  const handleChangeFilter = (eventField) => {
-    dispatch(
-      actions.ARTICLES_UPDATE.REQUESTED({
-        ...filter,
-        [eventField.target.name]: eventField.target.value,
-      })
-    );
-  };
 
   return (
     <form action="">
@@ -40,14 +26,14 @@ export default ({ filter }) => {
                     <Search />
                   </InputAdornment>
                 }
-                onChange={handleChangeFilter}
+                onChange={onUpdateArticles}
               />
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={8} className={classes.gridSelect}>
             <FormControl className={classes.formControl + " " + classes.selectSortBy}>
               <InputLabel id="order-label">Sort by</InputLabel>
-              <Select native labelId="order-label" id="order" name="order" value={order} onChange={handleChangeFilter}>
+              <Select native labelId="order-label" id="order" name="order" value={order} onChange={onUpdateArticles}>
                 <option value="created_at_desc">Created Date &#8595;</option>
                 <option value="created_at_asc">Created Date &#8593;</option>
                 <option value="title_desc">Name &#8595;</option>
@@ -56,7 +42,7 @@ export default ({ filter }) => {
             </FormControl>
             <FormControl className={classes.formControl}>
               <InputLabel id="limit-label">Per page</InputLabel>
-              <Select native labelId="limit-label" id="limit" name="limit" value={limit} onChange={handleChangeFilter}>
+              <Select native labelId="limit-label" id="limit" name="limit" value={limit} onChange={onUpdateArticles}>
                 <option value={4}>4</option>
                 <option value={8}>8</option>
                 <option value={12}>12</option>

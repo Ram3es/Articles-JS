@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { push } from "connected-react-router";
 import { useDispatch, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import * as queryString from "query-string";
 
 import { ROUTES_PATH } from "router/constants";
 import { actions } from "store/actions";
@@ -15,7 +16,7 @@ import { CssBaseline, Grid } from "@material-ui/core";
 import useStyles from "./stylels";
 import "./index.scss";
 
-const Main = ({ children }) => {
+const Main = ({ children, location }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -40,9 +41,14 @@ const Main = ({ children }) => {
         dispatch(push(ROUTES_PATH.SIGN_IN));
       }
     } else {
-      dispatch(push(ROUTES_PATH.ARTICLES));
+      const params = queryString.parse(location.search, {
+        parseNumbers: true,
+        sort: false,
+      });
+
+      dispatch(push(`${ROUTES_PATH.ARTICLES}?${new URLSearchParams(params).toString()}`));
     }
-  }, [isAuth, dispatch]);
+  }, [isAuth, dispatch, location.search]);
 
   return isAuth ? (
     <div className={classes.root}>
