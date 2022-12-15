@@ -36,7 +36,7 @@ export const initialState = {
   user: {},
   auth: {
     token: null,
-    isAuth: false,
+    isAuth: true,
     loading: false,
     error: null,
   },
