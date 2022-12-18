@@ -26,18 +26,12 @@ jobs:
 
 
       - name: Build image
-        run: docker build  -f deploy/Dockerfile -t $IMAGE_NAME .
+        run: docker build .  -f deploy/Dockerfile -t $IMAGE_NAME 
 
-      - name: Auth to Heroku 
-        uses: akhileshns/heroku-deploy@v3.12.12 
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: $HEROKU_APP_NAME
-          heroku_email: ${{secrets.HEROKU_API_KEY}}
-          justlogin: true
-
-      - name: push image to Heroku
+      - name: Heroku Deploy
+        env:
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: |
-          docker tag $IMAGE_NAME registry.heroku.com/$HEROKU_APP_NAME/$IMAGE_NAME
-          docker push registry.heroku.com/$HEROKU_APP_NAME/$IMAGE_NAME
-
+          heroku container:login
+          heroku container:push $IMAGE_NAME web
+          heroku container:release $IMAGE_NAME web
