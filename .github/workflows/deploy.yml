@@ -1,1 +1,40 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches:
+      - master
+
+ env:
+      HEROKU_APP_NAME: my-first-test-project
+
+jobs:
+  #Push to Heroku
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set env vars (development)
+        run: |
+          echo "IMAGE_NAME=articles-cont" >> $GITHUB_ENV
+          
+
+
+      - name: Build image
+        run: docker build . -f deploy/Dockerfile -t $IMAGE_NAME
+
+      - name: Auth to Heroku 
+        - uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: $HEROKU_APP_NAME
+          heroku_email: ${{secrets.HEROKU_API_KEY}}
+          justlogin: true
+
+      - name: push image to Heroku
+        run: |
+          docker tag $IMAGE_NAME registry.heroku.com/$HEROKU_APP_NAME/$IMAGE_NAME
+          docker push registry.digitalocean.com/$HEROKU_APP_NAME/$IMAGE_NAME
 
