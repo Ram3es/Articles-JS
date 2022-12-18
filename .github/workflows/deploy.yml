@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+  pull_request:
+    types: [opened]
+
 env:
   HEROKU_APP_NAME: my-first-test-project
 
@@ -27,11 +30,11 @@ jobs:
 
       - name: Auth to Heroku 
         uses: akhileshns/heroku-deploy@v3.12.12 
-          with:
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: $HEROKU_APP_NAME
-            heroku_email: ${{secrets.HEROKU_API_KEY}}
-            justlogin: true
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: $HEROKU_APP_NAME
+          heroku_email: ${{secrets.HEROKU_API_KEY}}
+          justlogin: true
 
       - name: push image to Heroku
         run: |
