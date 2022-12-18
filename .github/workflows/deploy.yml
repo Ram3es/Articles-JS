@@ -29,6 +29,8 @@ jobs:
         run: docker build  -f deploy/Dockerfile -t $IMAGE_NAME .
 
       - name: Heroku Deploy
+        env: 
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: |
           heroku container:login
           docker tag $IMAGE_NAME registry.heroku.com/$HEROKU_APP_NAME/web
