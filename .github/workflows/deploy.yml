@@ -39,5 +39,5 @@ jobs:
       - name: push image to Heroku
         run: |
           docker tag $IMAGE_NAME registry.heroku.com/$HEROKU_APP_NAME/$IMAGE_NAME
-          docker push registry.digitalocean.com/$HEROKU_APP_NAME/$IMAGE_NAME
+          docker push registry.heroku.com/$HEROKU_APP_NAME/$IMAGE_NAME
 
